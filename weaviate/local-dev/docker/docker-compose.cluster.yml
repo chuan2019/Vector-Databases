@@ -1,0 +1,145 @@
+services:
+  weaviate-node1:
+    image: cr.weaviate.io/semitechnologies/weaviate:1.32.2
+    container_name: weaviate-node1
+    ports:
+      - 8080:8080
+      - 50051:50051
+    volumes:
+      - weaviate_node1_data:/var/lib/weaviate
+    restart: on-failure:0
+    environment:
+      QUERY_DEFAULTS_LIMIT: 25
+      AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: 'true'
+      PERSISTENCE_DATA_PATH: '/var/lib/weaviate'
+      ENABLE_API_BASED_MODULES: 'true'
+      ENABLE_MODULES: 'text2vec-ollama,generative-ollama'
+      CLUSTER_HOSTNAME: 'node1'
+      CLUSTER_GOSSIP_BIND_PORT: '7946'
+      CLUSTER_DATA_BIND_PORT: '7947'
+      CLUSTER_JOIN: 'node1:7946,node2:7946,node3:7946'
+    command:
+      - --host
+      - 0.0.0.0
+      - --port
+      - '8080'
+      - --scheme
+      - http
+    networks:
+      - weaviate_net
+
+  weaviate-node2:
+    image: cr.weaviate.io/semitechnologies/weaviate:1.32.2
+    container_name: weaviate-node2
+    ports:
+      - 8081:8080
+      - 50052:50051
+    volumes:
+      - weaviate_node2_data:/var/lib/weaviate
+    restart: on-failure:0
+    environment:
+      QUERY_DEFAULTS_LIMIT: 25
+      AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: 'true'
+      PERSISTENCE_DATA_PATH: '/var/lib/weaviate'
+      ENABLE_API_BASED_MODULES: 'true'
+      ENABLE_MODULES: 'text2vec-ollama,generative-ollama'
+      CLUSTER_HOSTNAME: 'node2'
+      CLUSTER_GOSSIP_BIND_PORT: '7946'
+      CLUSTER_DATA_BIND_PORT: '7947'
+      CLUSTER_JOIN: 'node1:7946,node2:7946,node3:7946'
+    command:
+      - --host
+      - 0.0.0.0
+      - --port
+      - '8080'
+      - --scheme
+      - http
+    depends_on:
+      - weaviate-node1
+    networks:
+      - weaviate_net
+
+  weaviate-node3:
+    image: cr.weaviate.io/semitechnologies/weaviate:1.32.2
+    container_name: weaviate-node3
+    ports:
+      - 8082:8080
+      - 50053:50051
+    volumes:
+      - weaviate_node3_data:/var/lib/weaviate
+    restart: on-failure:0
+    environment:
+      QUERY_DEFAULTS_LIMIT: 25
+      AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: 'true'
+      PERSISTENCE_DATA_PATH: '/var/lib/weaviate'
+      ENABLE_API_BASED_MODULES: 'true'
+      ENABLE_MODULES: 'text2vec-ollama,generative-ollama'
+      CLUSTER_HOSTNAME: 'node3'
+      CLUSTER_GOSSIP_BIND_PORT: '7946'
+      CLUSTER_DATA_BIND_PORT: '7947'
+      CLUSTER_JOIN: 'node1:7946,node2:7946,node3:7946'
+    command:
+      - --host
+      - 0.0.0.0
+      - --port
+      - '8080'
+      - --scheme
+      - http
+    depends_on:
+      - weaviate-node1
+      - weaviate-node2
+    networks:
+      - weaviate_net
+
+  ollama:
+    image: ollama/ollama
+    container_name: ollama
+    ports:
+      - "11435:11434"
+    environment:
+      - OLLAMA_HOST=0.0.0.0:11434
+      - OLLAMA_MODELS=/opt/models
+    volumes:
+      - ollama_data:/root/.ollama
+      - ./models:/opt/models
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    restart: unless-stopped
+    networks:
+      - weaviate_net
+
+  ollama-init:
+    image: ollama/ollama
+    container_name: ollama-init
+    depends_on:
+      - ollama
+    volumes:
+      - ollama_data:/root/.ollama
+    environment:
+      - OLLAMA_HOST=ollama:11434
+    entrypoint: |
+      sh -c "
+      echo 'Waiting for Ollama to be ready...'
+      sleep 10
+      echo 'Pulling nomic-embed-text model...'
+      ollama pull nomic-embed-text
+      echo 'Pulling llama3.2 model...'
+      ollama pull llama3.2
+      echo 'Models pulled successfully!'
+      "
+    restart: "no"
+    networks:
+      - weaviate_net
+
+networks:
+  weaviate_net:
+volumes:
+  weaviate_node1_data:
+  weaviate_node2_data:
+  weaviate_node3_data:
+  ollama_data:
