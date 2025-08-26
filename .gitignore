@@ -1,2 +1,5 @@
 notebooks/.ipynb_checkpoints/
-weaviate/local-dev/docs/.ipynb_checkpoints/
+weaviate/local-dev/docker/models/
+weaviate/.venv/
+weaviate/.venv-1/
+weaviate/gui/
