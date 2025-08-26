@@ -185,22 +185,22 @@ For the sample dataset, this schema is created:
 
 ### Connection Issues
 ```bash
-❌ Cannot connect to Weaviate at http://localhost:8080
-💡 Make sure Weaviate is running:
+Cannot connect to Weaviate at http://localhost:8080
+Make sure Weaviate is running:
    Single node: make up-single
    Cluster:     make up-cluster
 ```
 
 ### File Issues
 ```bash
-❌ File not found: dataset.json
-❌ Invalid JSON file: Expecting ',' delimiter: line 5 column 10 (char 123)
+File not found: dataset.json
+Invalid JSON file: Expecting ',' delimiter: line 5 column 10 (char 123)
 ```
 
 ### Upload Issues
 ```bash
-❌ Error creating class MyClass: 422 Client Error
-❌ Error uploading batch 1: 500 Server Error
+Error creating class MyClass: 422 Client Error
+Error uploading batch 1: 500 Server Error
 ```
 
 ## Best Practices

@@ -2,7 +2,7 @@
 
 A comprehensive local development setup for Weaviate vector database with support for both single-node and cluster deployments.
 
-## 🚀 Quick Start
+## Quick Start
 
 ```bash
 # First-time setup
@@ -18,15 +18,15 @@ make up-cluster
 make upload-sample
 ```
 
-## 📋 Features
+## Features
 
-- ✅ **Single-node and cluster modes** - Flexible deployment options
-- ✅ **Docker containerization** - Isolated development environment
-- ✅ **Automated setup scripts** - One-command installation
-- ✅ **Dataset upload tools** - Easy data ingestion
-- ✅ **Development utilities** - Debugging and monitoring tools
+- **Single-node and cluster modes** - Flexible deployment options
+- **Docker containerization** - Isolated development environment
+- **Automated setup scripts** - One-command installation
+- **Dataset upload tools** - Easy data ingestion
+- **Development utilities** - Debugging and monitoring tools
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 local-dev/
@@ -42,18 +42,18 @@ local-dev/
 └── docker-compose.yml             # Main compose file
 ```
 
-## 📖 Comprehensive Documentation
+## Comprehensive Documentation
 
 For detailed information, please refer to the documentation in the [`docs/`](./docs/) directory:
 
-### 🔧 Setup and Configuration
+### Setup and Configuration
 - **[Setup Guide](./docs/SETUP_GUIDE.md)** - Complete installation and configuration instructions
 - **[Configuration Overview](./docs/CONFIG_OVERVIEW.md)** - Detailed configuration options and file structure
 
-### 📊 Data Management
+### Data Management
 - **[Dataset Upload Guide](./docs/DATASET_UPLOAD_GUIDE.md)** - Upload datasets and manage data ingestion
 
-## 🎯 Common Tasks
+## Common Tasks
 
 | Task | Command | Description |
 |------|---------|-------------|
@@ -66,13 +66,13 @@ For detailed information, please refer to the documentation in the [`docs/`](./d
 | **View Logs** | `make logs` | View service logs |
 | **Clean Up** | `make clean` | Remove containers and volumes |
 
-## 🔗 Quick Links
+## Quick Links
 
 - **[Weaviate Console](http://localhost:8080)** - Database management interface (when running)
 - **[API Documentation](http://localhost:8080/v1/)** - REST API reference
 - **[GraphQL Playground](http://localhost:8080/v1/graphql)** - Interactive GraphQL interface
 
-## 📋 Requirements
+## Requirements
 
 - Docker and Docker Compose
 - Python 3.8+ (for dataset upload tools)
@@ -81,4 +81,4 @@ For detailed information, please refer to the documentation in the [`docs/`](./d
 
 ---
 
-📚 **For detailed documentation, examples, and advanced configuration options, see the [`docs/`](./docs/) directory.**
+**For detailed documentation, examples, and advanced configuration options, see the [`docs/`](./docs/) directory.**
