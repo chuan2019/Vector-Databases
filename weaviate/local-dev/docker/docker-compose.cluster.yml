@@ -93,7 +93,7 @@ services:
 
   ollama:
     image: ollama/ollama
-    container_name: ollama
+    container_name: ollama-cluster
     ports:
       - "11435:11434"
     environment:
@@ -115,7 +115,7 @@ services:
 
   ollama-init:
     image: ollama/ollama
-    container_name: ollama-init
+    container_name: ollama-init-cluster
     depends_on:
       - ollama
     volumes:
