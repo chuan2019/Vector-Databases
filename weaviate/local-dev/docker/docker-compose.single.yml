@@ -27,7 +27,7 @@ services:
 
   ollama:
     image: ollama/ollama
-    container_name: ollama
+    container_name: ollama-single
     ports:
       - "11435:11434"
     environment:
@@ -49,7 +49,7 @@ services:
 
   ollama-init:
     image: ollama/ollama
-    container_name: ollama-init
+    container_name: ollama-init-single
     depends_on:
       - ollama
     volumes:
