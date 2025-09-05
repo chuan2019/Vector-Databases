@@ -57,7 +57,7 @@ class WeaviateUploader:
                 }
             }
         }
-        
+
         try:
             response = self.session.post(
                 f"{self.weaviate_url}/v1/schema",
