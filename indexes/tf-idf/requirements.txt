@@ -1,0 +1,2 @@
+# Python dependencies for TF-IDF calculator
+# No external dependencies required - using pure Python implementation
