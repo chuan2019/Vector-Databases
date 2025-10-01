@@ -1,3 +1,0 @@
-[submodule "datasets/recipes"]
-	path = datasets/recipes
-	url = https://github.com/weaviate/recipes
