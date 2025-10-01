@@ -1,0 +1,58 @@
+services:
+  tfidf-calculator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: tfidf-calculator:latest
+    container_name: tfidf-calculator
+    volumes:
+      # Mount the source code for development (optional)
+      - ./:/app
+    environment:
+      - PYTHONPATH=/app
+    # Override default command for interactive use
+    command: python tfidf_calculator.py
+    # For interactive shells, uncomment the next two lines:
+    # stdin_open: true
+    # tty: true
+
+  # Service for running the simple example
+  simple-example:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: tfidf-calculator:latest
+    container_name: tfidf-simple
+    volumes:
+      - ./:/app
+    environment:
+      - PYTHONPATH=/app
+    command: python simple_tfidf_example.py
+
+  # Service for running the document ranker
+  document-ranker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: tfidf-calculator:latest
+    container_name: tfidf-ranker
+    volumes:
+      - ./:/app
+    environment:
+      - PYTHONPATH=/app
+    command: python document_ranker.py
+
+  # Interactive development environment
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: tfidf-calculator:latest
+    container_name: tfidf-dev
+    volumes:
+      - ./:/app
+    environment:
+      - PYTHONPATH=/app
+    command: bash
+    stdin_open: true
+    tty: true
